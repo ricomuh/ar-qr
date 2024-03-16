@@ -14,6 +14,7 @@
 
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
+    <script src="https://unpkg.com/aframe-transparent-video-shader@1.0.6/dist/aframe-transparent-video-shader.umd.js"></script>
   </head>
   <body>
     <a-scene
@@ -24,24 +25,49 @@
       device-orientation-permission-ui="enabled: false"
     >
       <a-assets>
-        <!-- gif from ./video/butterfly-unscreen.gif -->
-        <img
-          id="butterfly"
-          src="./video/butterfly-unscreen.gif"
-          alt="butterfly"
-        />
+         <!-- video from ./video/planetransparent.webm -->
+        <video
+          id="plane"
+          autoplay
+          loop
+          src="./video/transparent.webm"
+          crossorigin="anonymous"
+          playsinline
+          muted
+        >
       </a-assets>
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-      <a-entity mindar-image-target="targetIndex: 0">
-        <a-plane
-          src="#butterfly"
-          position="0 0 0"
-          height="0.552"
-          width="1"
-          rotation="0 0 0"
-        ></a-plane>
+      
+      <a-entity
+      mindar-image-target="targetIndex: 0"
+        material="shader: transparent-video; src: #plane"
+        geometry="primitive: plane;
+                  width: 1;
+                  height: 1.8"
+        position="0 0 -5">
+        
       </a-entity>
+      <!-- <a-entity mindar-image-target="targetIndex: 0">
+        <a-video
+          src="#butterfly"
+          position="0 0 -5"
+          scale="2 2 2"
+          rotation="0 180 0"
+        >
+        </a-video>
+      </a-entity> -->
+
+      <!-- <script>
+        window.addEventListener("click", () => {
+          const video = document.querySelector("#butterfly");
+          if (video.paused) {
+            video.play();
+          } else {
+            video.pause();
+          }
+        });
+      </script> -->
     </a-scene>
   </body>
 </html>
